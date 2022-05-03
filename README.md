@@ -3,14 +3,16 @@ The aim of this project is to approach the problem of evaluating a dialogue's co
 
 ## Methodology
 ### Data
-DailyDialog [Li et al., “DailyDialog.”](https://aclanthology.org/I17-1099)[data](https://aclanthology.org/attachments/I17-1099.Datasets.zip) is a dataset containing more than 13000 dialogues and
+DailyDialog [Li et al., “DailyDialog.”](https://aclanthology.org/I17-1099) [data](https://aclanthology.org/attachments/I17-1099.Datasets.zip) is a dataset containing more than 13000 dialogues having
 - 7.9 (on average) speaker turns per dialogue;
 - 114.7 (on average) tokens per dialogue;
 - 14.6 (on average) tokens per utterance.
+
 The peculiarity defining DailyDialog is the precise annotation describing 3 different dialogue aspects, namely
 - emotions, specified for each utterance in the dialogue;
 - intentions, specified for each utterance in the dialogue;
 - topics, specified for each dialogue.
+
 As a quick overview of the main DailyDialog's characteristics is listed in the following:
 - **Daily Topics**: It covers ten categories ranging from ordinary life to financial topics, which is different from domain-specific datasets. 
 - **Bi-turn Dialog Flow**: It conforms basic dialog act flows, such as Questions-Inform and Directives-Commissives bi-turn flows, making it different from question answering (QA) datasets and post-reply datasets. 
@@ -29,4 +31,6 @@ Each dialogue is processed by each BERT model in such a way that many pairs of s
 - logical coherence - BERT outputs a value representing the probability of the second utterance-slot to be logically coherent with the first utterance-slot;
 - intention - BERT outputs a value representing the probability of the second utterance-slot to be "intentionally" coherent with the first utterance-slot. "Intentionally coherent" means that the pattern observed aggregating the intentions of utterances in the dialogue history allows for a certain type of intention to be the next utterance intention;
 - emotion - BERT outputs a value representing the probability of the second utterance-slot to be "emotionally" coherent with the first utterance-slot. "Emotionally coherent" means that the pattern observed aggregating the emotions of utterances in the dialogue history allows for a certain type of emotion to be the next utterance emotion;
-- topic BERT outputs a value representing the probability of the second utterance-slot to be "topic" coherent with the first utterance-slot. "Topic coherent" means that the utterances are about the same topic: the dataset does not allow for multiple topics in the same dialogue, thus it is not be possible to evaluate an in-dialogue topic change.
+- topic - BERT outputs a value representing the probability of the second utterance-slot to be "topic" coherent with the first utterance-slot. "Topic coherent" means that the utterances are about the same topic: the dataset does not allow for multiple topics in the same dialogue, thus it is not be possible to evaluate an in-dialogue topic change.
+
+Once 
