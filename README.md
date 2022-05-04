@@ -1,4 +1,4 @@
-# Approaching dialog coherence with multiple fine-tuned BERT
+# Approaching dialog coherence with multiple fine-tuned BERT models
 The aim of this project is to approach the problem of evaluating a dialogue's coherence by exploiting different measures, which are related to different dialogue aspects, such as logical coherence, debaters' intentions, emotions and discussed topics.
 
 ## Methodology
