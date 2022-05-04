@@ -2,11 +2,17 @@
 The aim of this project is to approach the problem of evaluating a dialogue's coherence by exploiting different measures, which are related to different dialogue aspects, such as logical coherence, debaters' intentions, emotions and discussed topics.
 
 ## Related work
+In the following there is a list of recent papers regarding novel coherence evaluation metrics and methods. One important thing to take into account, in all these works, is the evaluation procedure they make to test their metrics.
+
+
 [Ye et al., “Towards Quantifiable Dialogue Coherence Evaluation.”](https://aclanthology.org/2021.acl-long.211)[^ye2021] proposed Quantifiable Dialogue Coherence Evaluation (namely QuantiDCE), which is a coherence measure aimig at having a high correlations with human evaluations in an automatic fashion. The main features in QuantiDCE are:
 - it models the task in a multi-level setting which is closer to the actual human rating, instead of simplifying the coherence evaluation task solving it in a two-level setting (i.e., coherent or incoherent). Indeed, humans usually adopt Likert scaling and give coherence scores from multiple levels like 1 to 5;
 - it can be fine-tuned with a small set of actual human-annotated coherence scores.
 
-
+[Pang et al., “Towards Holistic and Automatic Evaluation of Open-Domain Dialogue Generation.”](https://aclanthology.org/2020.acl-main.333)[^pang2020] proposed holistic evaluation metrics that capture different aspects of open-domain dialogues. Their metrics consists of 1) GPT-2 based context coherence between sentences in a dialogue, (2) GPT-2 based fluency in phrasing, (3) n-gram based diversity in responses to augmented queries, and (4) textual-entailment-inference based logical self-consistency. Their metrics strongly correlate with human evaluations. The main features (for this project) in this work are:
+- the way they measure context coherence using a GPT-2 fine-tuned on the next sentence prediciton task on the dialogue dataset of interest
+- the way they measure the logical self-consistency using a pretrained Multi-Genre Natural Language Inference[^williams2018] model to label if the relation of the response and the utterance history of the same agent is logically consistent;
+- they evaluate the relation across the metrics
 
 ## Methodology
 ### Data
@@ -71,3 +77,9 @@ Another curiosity that could be satisfied is to analyse how different fine-tunin
 
 [^ye2021]:
     Ye, Zheng, Liucun Lu, Lishan Huang, Liang Lin, and Xiaodan Liang. “Towards Quantifiable Dialogue Coherence Evaluation.” In Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers), 2718–29. Online: Association for Computational Linguistics, 2021. https://doi.org/10.18653/v1/2021.acl-long.211.
+
+[^pang2020]:
+    Pang, Bo, Erik Nijkamp, Wenjuan Han, Linqi Zhou, Yixian Liu, and Kewei Tu. “Towards Holistic and Automatic Evaluation of Open-Domain Dialogue Generation.” In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics, 3619–29. Online: Association for Computational Linguistics, 2020. https://doi.org/10.18653/v1/2020.acl-main.333.
+
+[^williams2018]:
+    Williams, Adina, Nikita Nangia, and Samuel Bowman. “A Broad-Coverage Challenge Corpus for Sentence Understanding through Inference.” In Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers), 1112–22. New Orleans, Louisiana: Association for Computational Linguistics, 2018. https://doi.org/10.18653/v1/N18-1101.
