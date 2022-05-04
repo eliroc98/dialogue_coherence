@@ -26,10 +26,6 @@ The selected dataset does not necessarily require many preparations steps. One m
 - assigning the label "*logically-coherent*" to those sequences of utterances which appear in a dialogue from DailyDialog;
 - assigning the label "*logically-not coherent*" to sequences of utterances belonging to perturbations of dialogues obtained by the perturbations of genuine ones.
 
-[^dailydialog]: 
-    Li, Yanran, Hui Su, Xiaoyu Shen, Wenjie Li, Ziqiang Cao, and Shuzi Niu. “DailyDialog: A Manually Labelled Multi-Turn Dialogue Dataset.” In Proceedings of the Eighth International Joint Conference on Natural Language Processing (Volume 1: Long Papers), 986–95. Taipei, Taiwan: Asian Federation of Natural Language Processing, 2017. https://aclanthology.org/I17-1099.
-
-
 ### Modeling strategy
 DailyDialog is used as input data in 4 BERT pre-trained models to perform the fine-tuning procedure. The objective here is to have 4 specilized models to capture the different aspects defined before: logical coherence, debaters' intentions, emotions and discussed topics.
 
@@ -55,3 +51,6 @@ Given the promising results obtained by the two presented papers, it should be i
 2. it offers a new way of making the coherence metric more verifiable. Indeed, if the pattern in attention masks observed for a new dialog is similar to those patterns observed in the ground truth, it could be that this similarity correlates with an effective coherence measure.
 
 Another curiosity that could be satisfied is to analyse how different fine-tuning procedures for different tasks affect the pattern observed in the attention masks. An interesting point would be to discover that, when performing the emotion classification, the attention mask finds correspondences in the two-slot inputs which are semantically correlated with something "emotional".
+
+[^dailydialog]: 
+    Li, Yanran, Hui Su, Xiaoyu Shen, Wenjie Li, Ziqiang Cao, and Shuzi Niu. “DailyDialog: A Manually Labelled Multi-Turn Dialogue Dataset.” In Proceedings of the Eighth International Joint Conference on Natural Language Processing (Volume 1: Long Papers), 986–95. Taipei, Taiwan: Asian Federation of Natural Language Processing, 2017. https://aclanthology.org/I17-1099.
