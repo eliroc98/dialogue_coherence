@@ -1,6 +1,13 @@
 # Approaching dialog coherence with multiple fine-tuned BERT models
 The aim of this project is to approach the problem of evaluating a dialogue's coherence by exploiting different measures, which are related to different dialogue aspects, such as logical coherence, debaters' intentions, emotions and discussed topics.
 
+## Related work
+[Ye et al., “Towards Quantifiable Dialogue Coherence Evaluation.”](https://aclanthology.org/2021.acl-long.211)[^ye2021] proposed Quantifiable Dialogue Coherence Evaluation (namely QuantiDCE), which is a coherence measure aimig at having a high correlations with human evaluations in an automatic fashion. The main features in QuantiDCE are:
+- it models the task in a multi-level setting which is closer to the actual human rating, instead of simplifying the coherence evaluation task solving it in a two-level setting (i.e., coherent or incoherent). Indeed, humans usually adopt Likert scaling and give coherence scores from multiple levels like 1 to 5;
+- it can be fine-tuned with a small set of actual human-annotated coherence scores.
+
+
+
 ## Methodology
 ### Data
 The work presented in [Li et al., “DailyDialog.”](https://aclanthology.org/I17-1099)[^li2017] consists of a [dataset](https://aclanthology.org/attachments/I17-1099.Datasets.zip) containing more than 13000 dialogues having
@@ -62,3 +69,5 @@ Another curiosity that could be satisfied is to analyse how different fine-tunin
 [^raganato2018]:
     Raganato, Alessandro, and Jörg Tiedemann. “An Analysis of Encoder Representations in Transformer-Based Machine Translation.” In Proceedings of the 2018 EMNLP Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP, 287–97. Brussels, Belgium: Association for Computational Linguistics, 2018. https://doi.org/10.18653/v1/W18-5431.
 
+[^ye2021]:
+    Ye, Zheng, Liucun Lu, Lishan Huang, Liang Lin, and Xiaodan Liang. “Towards Quantifiable Dialogue Coherence Evaluation.” In Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 1: Long Papers), 2718–29. Online: Association for Computational Linguistics, 2021. https://doi.org/10.18653/v1/2021.acl-long.211.
