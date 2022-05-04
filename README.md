@@ -13,8 +13,6 @@ The peculiarity defining DailyDialog is the precise annotation describing 3 diff
 - intentions, specified for each utterance in the dialogue;
 - topics, specified for each dialogue.
 
-![dailydialog_statistics](imgs/dailydialog_statistics.png)
-
 As a quick overview of the main DailyDialog's characteristics is listed in the following:
 - **Daily Topics**: It covers ten categories ranging from ordinary life to financial topics, which is different from domain-specific datasets. 
 - **Bi-turn Dialog Flow**: It conforms basic dialog act flows, such as Questions-Inform and Directives-Commissives bi-turn flows, making it different from question answering (QA) datasets and post-reply datasets. 
