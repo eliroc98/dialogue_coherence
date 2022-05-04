@@ -3,7 +3,7 @@ The aim of this project is to approach the problem of evaluating a dialogue's co
 
 ## Methodology
 ### Data
-The work presented in [Li et al., “DailyDialog.”](https://aclanthology.org/I17-1099)[^dailydialog] consists of a [dataset](https://aclanthology.org/attachments/I17-1099.Datasets.zip) containing more than 13000 dialogues having
+The work presented in [Li et al., “DailyDialog.”](https://aclanthology.org/I17-1099)[^li2017] consists of a [dataset](https://aclanthology.org/attachments/I17-1099.Datasets.zip) containing more than 13000 dialogues having
 - 7.9 (on average) speaker turns per dialogue;
 - 114.7 (on average) tokens per dialogue;
 - 14.6 (on average) tokens per utterance.
@@ -20,7 +20,7 @@ As a quick overview of the main DailyDialog's characteristics is listed in the f
 - **Rich Emotion**: It contains rich emotions and is labeled manually to keep high-quality, which is distinguished from most existing dialog datasets.
 
 #### Data preparation
-The selected dataset does not necessarily require many preparations steps. One major task to complete to have the final dataset is to add many features to address the problem of measuring the logical coherence. To do so, it is possible to follow a similar procedure to what is suggested in [Dziri et al., “Evaluating Coherence in Dialogue Systems Using Entailment.”](http://arxiv.org/abs/1904.03371):
+The selected dataset does not necessarily require many preparations steps. One major task to complete to have the final dataset is to add many features to address the problem of measuring the logical coherence. To do so, it is possible to follow a similar procedure to what is suggested in [Dziri et al., “Evaluating Coherence in Dialogue Systems Using Entailment.”](http://arxiv.org/abs/1904.03371)[^dziri2020]:
 - assigning the label "*logically-coherent*" to those sequences of utterances which appear in a dialogue from DailyDialog;
 - assigning the label "*logically-not coherent*" to sequences of utterances belonging to perturbations of dialogues obtained by the perturbations of genuine ones.
 
@@ -38,9 +38,9 @@ Once a dialogue is entirely processed, the probability patterns regarding logica
 ### Possible enhancement
 One possible additional task based on the previously described methodology is to interpret which parts of two utterances in a dialogue are related according to the weights computed by BERT and stored in the encoder-decoder multi-head attention sub-layer, which performs an attention between the final encoder representation and the decoder representation, and in which each position of the decoder attends all positions in the last encoder layer.
 
-This idea follows a procedure similar to what is proposed in [Raganato and Tiedemann, “An Analysis of Encoder Representations in Transformer-Based Machine Translation.”](https://aclanthology.org/W18-5431) and [Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808). The focus in this part of the work is to analyse the structure of the attention mask in BERT: indeed,
-- [Raganato and Tiedemann, “An Analysis of Encoder Representations in Transformer-Based Machine Translation.”](https://aclanthology.org/W18-5431) found that attention encapsulate dependency relations and syntactic and semantic behavior across layers;
-- [Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808) found that many attention heads specialize in particular part-of-speech tags and that different tags are targeted at different layer depths. They also found that the deepest layers capture the most distant relationships, and that attention aligns most strongly  with dependency relations in the middle layers where attention distance is lowest. Lastly, they suggest that the structure of attention is closely tied to the training objective.
+This idea follows a procedure similar to what is proposed in [Raganato and Tiedemann, “An Analysis of Encoder Representations in Transformer-Based Machine Translation.”](https://aclanthology.org/W18-5431)[^raganato2018] and [Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808)[^vig2019]. The focus in this part of the work is to analyse the structure of the attention mask in BERT: indeed,
+- [Raganato and Tiedemann, “An Analysis of Encoder Representations in Transformer-Based Machine Translation.”](https://aclanthology.org/W18-5431)[^raganato2018] found that attention encapsulate dependency relations and syntactic and semantic behavior across layers;
+- [Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808)[^vig2019] found that many attention heads specialize in particular part-of-speech tags and that different tags are targeted at different layer depths. They also found that the deepest layers capture the most distant relationships, and that attention aligns most strongly  with dependency relations in the middle layers where attention distance is lowest. Lastly, they suggest that the structure of attention is closely tied to the training objective.
 
 ![attention_BERT](https://miro.medium.com/max/1400/0*AovFiJtn-LV-q2ey.gif)
 
@@ -50,5 +50,15 @@ Given the promising results obtained by the two presented papers, it should be i
 
 Another curiosity that could be satisfied is to analyse how different fine-tuning procedures for different tasks affect the pattern observed in the attention masks. An interesting point would be to discover that, when performing the emotion classification, the attention mask finds correspondences in the two-slot inputs which are semantically correlated with something "emotional".
 
-[^dailydialog]: 
+[^li2017]: 
     Li, Yanran, Hui Su, Xiaoyu Shen, Wenjie Li, Ziqiang Cao, and Shuzi Niu. “DailyDialog: A Manually Labelled Multi-Turn Dialogue Dataset.” In Proceedings of the Eighth International Joint Conference on Natural Language Processing (Volume 1: Long Papers), 986–95. Taipei, Taiwan: Asian Federation of Natural Language Processing, 2017. https://aclanthology.org/I17-1099.
+
+[^dziri2020]:
+    Dziri, Nouha, Ehsan Kamalloo, Kory W. Mathewson, and Osmar Zaiane. “Evaluating Coherence in Dialogue Systems Using Entailment.” ArXiv:1904.03371 [Cs], March 31, 2020. http://arxiv.org/abs/1904.03371.
+
+[^vig2019]:
+    Vig, Jesse, and Yonatan Belinkov. “Analyzing the Structure of Attention in a Transformer Language Model.” In Proceedings of the 2019 ACL Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP, 63–76. Florence, Italy: Association for Computational Linguistics, 2019. https://doi.org/10.18653/v1/W19-4808.
+
+[^raganato2018]:
+    Raganato, Alessandro, and Jörg Tiedemann. “An Analysis of Encoder Representations in Transformer-Based Machine Translation.” In Proceedings of the 2018 EMNLP Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP, 287–97. Brussels, Belgium: Association for Computational Linguistics, 2018. https://doi.org/10.18653/v1/W18-5431.
+
