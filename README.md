@@ -12,7 +12,14 @@ In the following there is a list of recent papers regarding novel coherence eval
 [Pang et al., “Towards Holistic and Automatic Evaluation of Open-Domain Dialogue Generation.”](https://aclanthology.org/2020.acl-main.333)[^pang2020] proposed holistic evaluation metrics that capture different aspects of open-domain dialogues. Their metrics consists of 1) GPT-2 based context coherence between sentences in a dialogue, (2) GPT-2 based fluency in phrasing, (3) n-gram based diversity in responses to augmented queries, and (4) textual-entailment-inference based logical self-consistency. Their metrics strongly correlate with human evaluations. The main features (for this project) in this work are:
 - the way they measure context coherence using a GPT-2 fine-tuned on the next sentence prediciton task on the dialogue dataset of interest
 - the way they measure the logical self-consistency using a pretrained Multi-Genre Natural Language Inference[^williams2018] model to label if the relation of the response and the utterance history of the same agent is logically consistent;
-- they evaluate the relation across the metrics
+- they evaluate the relation across the metrics.
+
+These two papers share some literature, which is reported in the following:
+...
+
+
+Concerning the structure of attention in transformers, 
+...
 
 ## Methodology
 ### Data
