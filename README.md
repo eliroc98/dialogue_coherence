@@ -3,7 +3,7 @@ The aim of this project is to approach the problem of evaluating a dialogue's co
 
 ## Methodology
 ### Data
-The work presented in [Li et al., “DailyDialog.”](https://aclanthology.org/I17-1099) consists of a [dataset](https://aclanthology.org/attachments/I17-1099.Datasets.zip) containing more than 13000 dialogues having
+The work presented in [Li et al., “DailyDialog.”](https://aclanthology.org/I17-1099)[^dailydialog] consists of a [dataset](https://aclanthology.org/attachments/I17-1099.Datasets.zip) containing more than 13000 dialogues having
 - 7.9 (on average) speaker turns per dialogue;
 - 114.7 (on average) tokens per dialogue;
 - 14.6 (on average) tokens per utterance.
@@ -44,10 +44,13 @@ This idea follows a procedure similar to what is proposed in [Raganato and Tiede
 - [Raganato and Tiedemann, “An Analysis of Encoder Representations in Transformer-Based Machine Translation.”](https://aclanthology.org/W18-5431) found that attention encapsulate dependency relations and syntactic and semantic behavior across layers;
 - [Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808) found that many attention heads specialize in particular part-of-speech tags and that different tags are targeted at different layer depths. They also found that the deepest layers capture the most distant relationships, and that attention aligns most strongly  with dependency relations in the middle layers where attention distance is lowest. Lastly, they suggest that the structure of attention is closely tied to the training objective.
 
-![attention_BERT](imgs/attention_bert.gif)
+![attention_BERT](https://miro.medium.com/max/1400/0*AovFiJtn-LV-q2ey.gif)
 
 Given the promising results obtained by the two presented papers, it should be interesting to leverage on attention masks to observe how the transformer works internally and the patterns it uses when addressing some specific tasks. Analysing attention masks has a twofold benefit:
 1. it makes the coherence "interpretable", especially when using the encoder-decoder attention mask;
 2. it offers a new way of making the coherence metric more verifiable. Indeed, if the pattern in attention masks observed for a new dialog is similar to those patterns observed in the ground truth, it could be that this similarity correlates with an effective coherence measure.
 
 Another curiosity that could be satisfied is to analyse how different fine-tuning procedures for different tasks affect the pattern observed in the attention masks. An interesting point would be to discover that, when performing the emotion classification, the attention mask finds correspondences in the two-slot inputs which are semantically correlated with something "emotional".
+
+[^dailydialog]: 
+    Li, Yanran, Hui Su, Xiaoyu Shen, Wenjie Li, Ziqiang Cao, and Shuzi Niu. “DailyDialog: A Manually Labelled Multi-Turn Dialogue Dataset.” In Proceedings of the Eighth International Joint Conference on Natural Language Processing (Volume 1: Long Papers), 986–95. Taipei, Taiwan: Asian Federation of Natural Language Processing, 2017. https://aclanthology.org/I17-1099.
