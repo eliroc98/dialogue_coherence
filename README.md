@@ -3,7 +3,7 @@ The aim of this project is to approach the problem of evaluating a dialogue's co
 
 ## Methodology
 ### Data
-DailyDialog [Li et al., “DailyDialog.”](https://aclanthology.org/I17-1099) [data](https://aclanthology.org/attachments/I17-1099.Datasets.zip) is a dataset containing more than 13000 dialogues having
+The work presented in [Li et al., “DailyDialog.”](https://aclanthology.org/I17-1099)[^dailydialog] consists of a [dataset](https://aclanthology.org/attachments/I17-1099.Datasets.zip) containing more than 13000 dialogues having
 - 7.9 (on average) speaker turns per dialogue;
 - 114.7 (on average) tokens per dialogue;
 - 14.6 (on average) tokens per utterance.
@@ -12,6 +12,8 @@ The peculiarity defining DailyDialog is the precise annotation describing 3 diff
 - emotions, specified for each utterance in the dialogue;
 - intentions, specified for each utterance in the dialogue;
 - topics, specified for each dialogue.
+
+![dailydialog_statistics](https://github.com/eliroc98/dialogue_coherence/blob/main/imgs/dailydialog_statistics.png)
 
 As a quick overview of the main DailyDialog's characteristics is listed in the following:
 - **Daily Topics**: It covers ten categories ranging from ordinary life to financial topics, which is different from domain-specific datasets. 
@@ -23,6 +25,10 @@ As a quick overview of the main DailyDialog's characteristics is listed in the f
 The selected dataset does not necessarily require many preparations steps. One major task to complete to have the final dataset is to add many features to address the problem of measuring the logical coherence. To do so, it is possible to follow a similar procedure to what is suggested in [Dziri et al., “Evaluating Coherence in Dialogue Systems Using Entailment.”](http://arxiv.org/abs/1904.03371):
 - assigning the label "*logically-coherent*" to those sequences of utterances which appear in a dialogue from DailyDialog;
 - assigning the label "*logically-not coherent*" to sequences of utterances belonging to perturbations of dialogues obtained by the perturbations of genuine ones.
+
+[^dailydialog]: 
+    Li, Yanran, Hui Su, Xiaoyu Shen, Wenjie Li, Ziqiang Cao, and Shuzi Niu. “DailyDialog: A Manually Labelled Multi-Turn Dialogue Dataset.” In Proceedings of the Eighth International Joint Conference on Natural Language Processing (Volume 1: Long Papers), 986–95. Taipei, Taiwan: Asian Federation of Natural Language Processing, 2017. https://aclanthology.org/I17-1099.
+
 
 ### Modeling strategy
 DailyDialog is used as input data in 4 BERT pre-trained models to perform the fine-tuning procedure. The objective here is to have 4 specilized models to capture the different aspects defined before: logical coherence, debaters' intentions, emotions and discussed topics.
