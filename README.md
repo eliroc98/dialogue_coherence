@@ -13,7 +13,7 @@ The peculiarity defining DailyDialog is the precise annotation describing 3 diff
 - intentions, specified for each utterance in the dialogue;
 - topics, specified for each dialogue.
 
-![dailydialog_statistics](https://github.com/eliroc98/dialogue_coherence/blob/main/imgs/dailydialog_statistics.png)
+![dailydialog_statistics](imgs/dailydialog_statistics.png)
 
 As a quick overview of the main DailyDialog's characteristics is listed in the following:
 - **Daily Topics**: It covers ten categories ranging from ordinary life to financial topics, which is different from domain-specific datasets. 
@@ -44,7 +44,7 @@ This idea follows a procedure similar to what is proposed in [Raganato and Tiede
 - [Raganato and Tiedemann, “An Analysis of Encoder Representations in Transformer-Based Machine Translation.”](https://aclanthology.org/W18-5431) found that attention encapsulate dependency relations and syntactic and semantic behavior across layers;
 - [Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808) found that many attention heads specialize in particular part-of-speech tags and that different tags are targeted at different layer depths. They also found that the deepest layers capture the most distant relationships, and that attention aligns most strongly  with dependency relations in the middle layers where attention distance is lowest. Lastly, they suggest that the structure of attention is closely tied to the training objective.
 
-![attention_BERT](https://github.com/eliroc98/dialogue_coherence/blob/main/imgs/attention_bert.gif)
+![attention_BERT](imgs/attention_bert.gif)
 
 Given the promising results obtained by the two presented papers, it should be interesting to leverage on attention masks to observe how the transformer works internally and the patterns it uses when addressing some specific tasks. Analysing attention masks has a twofold benefit:
 1. it makes the coherence "interpretable", especially when using the encoder-decoder attention mask;
