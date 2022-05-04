@@ -2,8 +2,9 @@
 The aim of this project is to approach the problem of evaluating a dialogue's coherence by exploiting different measures, which are related to different dialogue aspects, such as logical coherence, debaters' intentions, emotions and discussed topics.
 
 ## Related work
-In the following there is a list of recent papers regarding novel coherence evaluation metrics and methods. One important thing to take into account, in all these works, is the evaluation procedure they make to test their metrics.
 
+### Coherence evaluation
+In the following there is a list of recent papers regarding novel coherence evaluation metrics and methods. One important thing to take into account, in all these works, is the evaluation procedure they make to test their metrics.
 
 [Ye et al., “Towards Quantifiable Dialogue Coherence Evaluation.”](https://aclanthology.org/2021.acl-long.211)[^ye2021] proposed Quantifiable Dialogue Coherence Evaluation (namely QuantiDCE), which is a coherence measure aimig at having a high correlations with human evaluations in an automatic fashion. The main features in QuantiDCE are:
 - it models the task in a multi-level setting which is closer to the actual human rating, instead of simplifying the coherence evaluation task solving it in a two-level setting (i.e., coherent or incoherent). Indeed, humans usually adopt Likert scaling and give coherence scores from multiple levels like 1 to 5;
@@ -14,12 +15,23 @@ In the following there is a list of recent papers regarding novel coherence eval
 - the way they measure the logical self-consistency using a pretrained Multi-Genre Natural Language Inference[^williams2018] model to label if the relation of the response and the utterance history of the same agent is logically consistent;
 - they evaluate the relation across the metrics.
 
-These two papers share some literature, which is reported in the following:
-...
+These metrics achieve a better correlation with human annotations, fixing the problem of other metrics presented in the past which do not use semantic information, but they are still relevant in many works. Such non-semantic metrics are:
+- BLEU[^papineni2002]. The aim of BLEU is to evaluate traslations. The primary programming task for a BLEU implementor is to compare n-grams of the candidate with the n-grams of the reference translation and count the number of matches. These matches are position independent. The more the matches, the better the candidate translation is.
+- METEOR[^banerjee2005]. It is an automatic metric for machine translation evaluation that is based on a generalized concept of unigram matching between the machineproduced translation and human-produced reference translations.
+- ROUGE[^lin2004]. ROUGE stands for Recall-Oriented Understudy for Gisting Evaluation. It includes measures to automatically determine the quality of a summary by comparing it to other (ideal) summaries created by humans. The measures count the number of overlapping units such as n-gram, word sequences, and word pairs between the computer-generated summary to be evaluated and the ideal summaries created by humans.
 
+[Liu et al., “How NOT To Evaluate Your Dialogue System.”](https://aclanthology.org/D16-1230)[^liu2016] and [Novikova et al., “Why We Need New Evaluation Metrics for NLG.”](https://aclanthology.org/D17-1238)[^novikova2017] demonstrate that these matrics correlate poorly with human judgments due to the absence of semantic information.
 
-Concerning the structure of attention in transformers, 
-...
+Thus, one of the first improvement to be applied in coherence metrics consists in leveraging on semantic information to try to better correlate with human judgements. The following metrics are proposed to integrate semantic information to enrich the evaluation, and some of them are classified as learnable metrics:
+- BERTScore[^zhang2020]. It computes a similarity score for each token in the candidate sentence with each token in the reference sentence. However, instead of exact matches, it computes token similarity using contextual embeddings.
+- ADEM[^lowe2017]. The authors propose an automatic dialogue evaluation as a learning problem. We present an evaluation model (ADEM) that learns to predict human-like scores to input responses, using a new dataset of human response scores.
+- RUBER[^tao2018]. In this paper, the authors propose RUBER, a Referenced metric (an embedding-based scorer measures the similarity between a generated reply and the groundtruth) and Unreferenced metric (a neural network-based scorer measures the relatedness between the generated reply and its query) Blended Evaluation Routine, which evaluates a reply by taking into consideration both a groundtruth reply and a query (previous user-issued utterance). Our metric is learnable, but its training does not require labels of human satisfaction.
+- BERT-RUBER[^ghazarian2019]. It applies contextualized word embeddings to automatic evaluation of open-domain dialogue systems. The experiments showed that the unreferenced scores of RUBER metric can be improved by considering contextualized word embeddings which include richer representations of words and their context.
+- BLEURT[^sellam2020]. It is a learned evaluation metric based on BERT that can model human judgments with a few thousand possibly biased training examples. A key aspect of their approach is a novel pre-training scheme that uses millions of synthetic examples to help the model generalize.
+- GRADE[^huang2020]. The authors first consider that the graph structure constituted with topics in a dialogue can accurately depict the underlying communication logic, which is a more natural way to produce persuasive metrics. Capitalized on the topic-level dialogue graph, the authors propose a new evaluation metric GRADE, which stands for Graph-enhanced Representations for Automatic Dialogue Evaluation. Specifically, GRADE incorporates both coarsegrained utterance-level contextualized representations and fine-grained topic-level graph representations to evaluate dialogue coherence. The graph representations are obtained by reasoning over topic-level dialogue graphs enhanced with the evidence from a commonsense graph, including k-hop neighboring representations and hop-attention weights.
+
+### Structure of attention in transformers
+
 
 ## Methodology
 ### Data
@@ -44,6 +56,10 @@ The selected dataset does not necessarily require many preparations steps. One m
 - assigning the label "*logically-coherent*" to those sequences of utterances which appear in a dialogue from DailyDialog;
 - assigning the label "*logically-not coherent*" to sequences of utterances belonging to perturbations of dialogues obtained by the perturbations of genuine ones.
 
+#### Other datasets to analyse
+- DailyDialog++[^sai2020]. It allows for better training and robust evaluation of model-based metrics, we introduce the DailyDialog++ dataset, consisting of (i) five relevant responses for each context and (ii) five adversarially crafted irrelevant responses for each context.
+- DailyDialogEVAL[^huang2020], which is a subset of the adopted evaluation benchmark (Huang et al., 2020)[^huang2020], with 300 human rating data in total, and randomly split the data into training (90%) and validation (10%) sets.
+
 ### Modeling strategy
 DailyDialog is used as input data in 4 BERT pre-trained models to perform the fine-tuning procedure. The objective here is to have 4 specilized models to capture the different aspects defined before: logical coherence, debaters' intentions, emotions and discussed topics.
 
@@ -58,9 +74,9 @@ Once a dialogue is entirely processed, the probability patterns regarding logica
 ### Possible enhancement
 One possible additional task based on the previously described methodology is to interpret which parts of two utterances in a dialogue are related according to the weights computed by BERT and stored in the encoder-decoder multi-head attention sub-layer, which performs an attention between the final encoder representation and the decoder representation, and in which each position of the decoder attends all positions in the last encoder layer.
 
-This idea follows a procedure similar to what is proposed in [Raganato and Tiedemann, “An Analysis of Encoder Representations in Transformer-Based Machine Translation.”](https://aclanthology.org/W18-5431)[^raganato2018] and [Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808)[^vig2019]. The focus in this part of the work is to analyse the structure of the attention mask in BERT: indeed,
+This idea follows a procedure similar to what is proposed in [Raganato and Tiedemann, “An Analysis of Encoder Representations in Transformer-Based Machine Translation.”](https://aclanthology.org/W18-5431)[^raganato2018] and [Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808)[^vig2019a]. The focus in this part of the work is to analyse the structure of the attention mask in BERT: indeed,
 - [Raganato and Tiedemann, “An Analysis of Encoder Representations in Transformer-Based Machine Translation.”](https://aclanthology.org/W18-5431)[^raganato2018] found that attention encapsulate dependency relations and syntactic and semantic behavior across layers;
-- [Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808)[^vig2019] found that many attention heads specialize in particular part-of-speech tags and that different tags are targeted at different layer depths. They also found that the deepest layers capture the most distant relationships, and that attention aligns most strongly  with dependency relations in the middle layers where attention distance is lowest. Lastly, they suggest that the structure of attention is closely tied to the training objective.
+- [Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808)[^vig2019a] found that many attention heads specialize in particular part-of-speech tags and that different tags are targeted at different layer depths. They also found that the deepest layers capture the most distant relationships, and that attention aligns most strongly  with dependency relations in the middle layers where attention distance is lowest. Lastly, they suggest that the structure of attention is closely tied to the training objective.
 
 ![attention_BERT](https://miro.medium.com/max/1400/0*AovFiJtn-LV-q2ey.gif)
 
@@ -76,7 +92,7 @@ Another curiosity that could be satisfied is to analyse how different fine-tunin
 [^dziri2020]:
     Dziri, Nouha, Ehsan Kamalloo, Kory W. Mathewson, and Osmar Zaiane. “Evaluating Coherence in Dialogue Systems Using Entailment.” ArXiv:1904.03371 [Cs], March 31, 2020. http://arxiv.org/abs/1904.03371.
 
-[^vig2019]:
+[^vig2019a]:
     Vig, Jesse, and Yonatan Belinkov. “Analyzing the Structure of Attention in a Transformer Language Model.” In Proceedings of the 2019 ACL Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP, 63–76. Florence, Italy: Association for Computational Linguistics, 2019. https://doi.org/10.18653/v1/W19-4808.
 
 [^raganato2018]:
@@ -90,3 +106,46 @@ Another curiosity that could be satisfied is to analyse how different fine-tunin
 
 [^williams2018]:
     Williams, Adina, Nikita Nangia, and Samuel Bowman. “A Broad-Coverage Challenge Corpus for Sentence Understanding through Inference.” In Proceedings of the 2018 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long Papers), 1112–22. New Orleans, Louisiana: Association for Computational Linguistics, 2018. https://doi.org/10.18653/v1/N18-1101.
+
+[^zhang2020]:
+    Zhang*, Tianyi, Varsha Kishore*, Felix Wu*, Kilian Q. Weinberger, and Yoav Artzi. “BERTScore: Evaluating Text Generation with BERT,” 2019. https://openreview.net/forum?id=SkeHuCVFDr.
+
+[^ghazarian2019]:
+    Ghazarian, Sarik, Johnny Wei, Aram Galstyan, and Nanyun Peng. “Better Automatic Evaluation of Open-Domain Dialogue Systems with Contextualized Embeddings.” In Proceedings of the Workshop on Methods for Optimizing and Evaluating Neural Language Generation, 82–89. Minneapolis, Minnesota: Association for Computational Linguistics, 2019. https://doi.org/10.18653/v1/W19-2310.
+
+[^papineni2002]:
+    Papineni, Kishore, Salim Roukos, Todd Ward, and Wei-Jing Zhu. “BLEU: A Method for Automatic Evaluation of Machine Translation.” In Proceedings of the 40th Annual Meeting on Association for Computational Linguistics, 311–18. ACL ’02. USA: Association for Computational Linguistics, 2002. https://doi.org/10.3115/1073083.1073135.
+
+[^sellam2020]:
+    Sellam, Thibault, Dipanjan Das, and Ankur Parikh. “BLEURT: Learning Robust Metrics for Text Generation.” In Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics, 7881–92. Online: Association for Computational Linguistics, 2020. https://doi.org/10.18653/v1/2020.acl-main.704.
+
+[^huang2020]:
+    Huang, Lishan, Zheng Ye, Jinghui Qin, Liang Lin, and Xiaodan Liang. “GRADE: Automatic Graph-Enhanced Coherence Metric for Evaluating Open-Domain Dialogue Systems.” In Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP), 9230–40. Online: Association for Computational Linguistics, 2020. https://doi.org/10.18653/v1/2020.emnlp-main.742.
+
+[^banerjee2005]:
+    Banerjee, Satanjeev, and Alon Lavie. “METEOR: An Automatic Metric for MT Evaluation with Improved Correlation with Human Judgments.” In Proceedings of the ACL Workshop on Intrinsic and Extrinsic Evaluation Measures for Machine Translation and/or Summarization, 65–72. Ann Arbor, Michigan: Association for Computational Linguistics, 2005. https://aclanthology.org/W05-0909.
+
+[^lin2004]:
+    Lin, Chin-Yew. “ROUGE: A Package for Automatic Evaluation of Summaries.” In Text Summarization Branches Out, 74–81. Barcelona, Spain: Association for Computational Linguistics, 2004. https://aclanthology.org/W04-1013.
+
+[^lowe2017]:
+    Lowe, Ryan, Michael Noseworthy, Iulian Vlad Serban, Nicolas Angelard-Gontier, Yoshua Bengio, and Joelle Pineau. “Towards an Automatic Turing Test: Learning to Evaluate Dialogue Responses.” In Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), 1116–26. Vancouver, Canada: Association for Computational Linguistics, 2017. https://doi.org/10.18653/v1/P17-1103.
+
+[^tao2018]:
+    Tao, Chongyang, Lili Mou, Dongyan Zhao, and Rui Yan. “RUBER: An Unsupervised Method for Automatic Evaluation of Open-Domain Dialog Systems.” Proceedings of the AAAI Conference on Artificial Intelligence 32, no. 1 (April 25, 2018). https://ojs.aaai.org/index.php/AAAI/article/view/11321.
+
+[^liu2016]:
+    Liu, Chia-Wei, Ryan Lowe, Iulian Serban, Mike Noseworthy, Laurent Charlin, and Joelle Pineau. “How NOT To Evaluate Your Dialogue System: An Empirical Study of Unsupervised Evaluation Metrics for Dialogue Response Generation.” In Proceedings of the 2016 Conference on Empirical Methods in Natural Language Processing, 2122–32. Austin, Texas: Association for Computational Linguistics, 2016. https://doi.org/10.18653/v1/D16-1230.
+
+[^novikova2017]:
+    Novikova, Jekaterina, Ondřej Dušek, Amanda Cercas Curry, and Verena Rieser. “Why We Need New Evaluation Metrics for NLG.” In Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing, 2241–52. Copenhagen, Denmark: Association for Computational Linguistics, 2017. https://doi.org/10.18653/v1/D17-1238.
+
+[^sai2020]:
+    Sai, Ananya B., Akash Kumar Mohankumar, Siddhartha Arora, and Mitesh M. Khapra. “Improving Dialog Evaluation with a Multi-Reference Adversarial Dataset and Large Scale Pretraining.” ArXiv:2009.11321 [Cs], September 23, 2020. http://arxiv.org/abs/2009.11321.
+
+[^clark2019]:
+    Clark, Kevin, Urvashi Khandelwal, Omer Levy, and Christopher D. Manning. “What Does BERT Look At? An Analysis of BERT’s Attention.” ArXiv:1906.04341 [Cs], June 10, 2019. http://arxiv.org/abs/1906.04341.
+
+[^vig2019b]:
+    Vig, Jesse. “A Multiscale Visualization of Attention in the Transformer Model.” In Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics: System Demonstrations, 37–42. Florence, Italy: Association for Computational Linguistics, 2019. https://doi.org/10.18653/v1/P19-3007.
+
