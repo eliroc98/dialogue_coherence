@@ -64,7 +64,7 @@ The selected dataset does not necessarily require many preparations steps. One m
 - assigning the label "*logically-not coherent*" to sequences of utterances belonging to perturbations of dialogues obtained by the perturbations of genuine ones.
 
 #### Other datasets to analyse
-- DailyDialog++[^sai2020]. It allows for better training and robust evaluation of model-based metrics, we introduce the DailyDialog++ dataset, consisting of (i) five relevant responses for each context and (ii) five adversarially crafted irrelevant responses for each context.
+- [DailyDialog++](https://github.com/iitmnlp/Dialogue-Evaluation-with-BERT)[^sai2020]. It allows for better training and robust evaluation of model-based metrics, they introduce the DailyDialog++ dataset, consisting of (i) five relevant responses for each context and (ii) five adversarially crafted irrelevant responses for each context. This dataset can be used to train a model classifying how coherent is a dialog in logical terms.
 - DailyDialogEVAL[^huang2020], which is a subset of the adopted evaluation benchmark (Huang et al., 2020)[^huang2020], with 300 human rating data in total, and randomly split the data into training (90%) and validation (10%) sets.
 
 ### Modeling strategy
