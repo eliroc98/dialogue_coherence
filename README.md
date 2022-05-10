@@ -91,7 +91,7 @@ Each dialogue is processed by each BERT model in such a way that many pairs of s
 
 Once a dialogue is entirely processed, the probability patterns regarding logical coherence, intentions, emotions and topics are extracted and confronted with the patterns in the groud truth (consisting only of coherent dialogues). The degree of adherence of each pattern with the ground truth can be a proxy of the multi-dimension coherence, which is the objective of this work.
 
-### Possible enhancement
+### Comments on self-attention
 One possible additional task based on the previously described methodology is to interpret which parts of two utterances in a dialogue are related according to the weights computed by BERT and stored in the encoder-decoder multi-head attention sub-layer, which performs an attention between the final encoder representation and the decoder representation, and in which each position of the decoder attends all positions in the last encoder layer.
 
 This idea follows a procedure similar to what is proposed in [Raganato and Tiedemann, “An Analysis of Encoder Representations in Transformer-Based Machine Translation.”](https://aclanthology.org/W18-5431)[^raganato2018] and [Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808)[^vig2019a]. The focus in this part of the work is to analyse the structure of the attention mask in BERT.
