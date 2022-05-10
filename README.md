@@ -3,6 +3,8 @@ The aim of this project is to approach the problem of evaluating the patterns in
 
 Dialogue coherence classification is one of the supervised problem we take into account.
 
+Overleaf edit link: https://www.overleaf.com/9235718374sshdqfkxqngp
+
 ## Related work
 
 ### Structure of attention in transformers
