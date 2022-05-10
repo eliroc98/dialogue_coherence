@@ -1,7 +1,26 @@
-# Approaching dialog coherence with multiple fine-tuned BERT models
-The aim of this project is to approach the problem of evaluating a dialogue's coherence by exploiting different measures, which are related to different dialogue aspects, such as logical coherence, debaters' intentions, emotions and discussed topics.
+# BERT's attention in dialogues: an analysis across different classification tasks
+The aim of this project is to approach the problem of evaluating the patterns in BERT's self attention. In particular, this work analyses how different classification tasks affect those patterns. The textual documents of interests are dialogues: this means that potential patterns in BERT's self-attention could possibly explain semantic and logic relations between sentences in a conversation. 
+
+Dialogue coherence classification is one of the supervised problem we take into account.
 
 ## Related work
+
+### Structure of attention in transformers
+[Clark et al., “What Does BERT Look At?”](http://arxiv.org/abs/1906.04341)[^clark2019] propose methods for analysing the attention mechanisms of pre-trained models and apply them to BERT[^devlin2019]. BERT’s attention heads exhibit patterns such as attending to delimiter tokens, specific positional offsets, or broadly attending over the whole sentence, with heads in the same layer often exhibiting similar behaviors. We further show that certain attention heads correspond well to linguistic notions of syntax and coreference. They propose an attention-based probing classifier and use it to further demonstrate that substantial syntactic information is captured in BERT’s attention. What is interesting for this work are many aspects of their findings:
+- BERT is capable of learning a lot of linguistic knowledge in its attention maps. This is relevant because the behaviour of the attention heads emerges purely from self-supervised training on unlabeled data, without explicit supervision for syntax or coreference;
+- they not only highlight the patterns found in attention maps, but they also validate this qualitative finding investigating individual attention heads to probe what aspects of language they have learned. They evaluate attention heads on labeled datasets for task like dependency parsing and coreference resolution;
+- they cluster attention heads to show that heads tend to cluster depending on their behaviour and their layer.
+👩‍💻 Links: [GitHub](https://github.com/li3cmz/GRADE) code to extract attention masks!
+
+[Raganato and Tiedemann, “An Analysis of Encoder Representations in Transformer-Based Machine Translation.”](https://aclanthology.org/W18-5431)[^raganato2018] found that attention encapsulate dependency relations and syntactic and semantic behavior across layers.
+
+[Manning et al., “Emergent Linguistic Structure in Artificial Neural Networks Trained by Self-Supervision.”](https://www.pnas.org/doi/full/10.1073/pnas.1907367117)[^manning2020] describes from scratch the problem of analysing linguistic structure in attention masks. Along with explaining all the building bricks to understand the problem itself, they explain also how to evaluate the attention head in representing a certain attention pattern. In particular, they use attention heads as simple classifiers, examining the most-attended-to word at each position. They evaluate whether the attention head is expressing a particular linguistic relationship by computing how often the most-attendend-to word is in that relationship with the input word. They compute the precision expressing the head's capability of identifying certain linguistic relationships: this score can be viewed as evaluating the attention head as a simple classifier that predicts the presence of the linguistic relationship of interest.
+
+[Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808)[^vig2019a] found that many attention heads specialize in particular part-of-speech tags and that different tags are targeted at different layer depths. They also found that the deepest layers capture the most distant relationships, and that attention aligns most strongly  with dependency relations in the middle layers where attention distance is lowest. Lastly, they suggest that the structure of attention is closely tied to the training objective.
+
+The following papers are essential in order to understand attention, transformers and BERT:
+- [Devlin et al., “BERT.”](https://aclanthology.org/N19-1423)[^devlin2019] is designed to pretrain deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers. As a result, the pre-trained BERT model can be finetuned with just one additional output layer to create state-of-the-art models for a wide range of tasks, such as question answering and language inference, without substantial taskspecific architecture modifications. 👩‍💻 Links: [GitHub](https://github.com/google-research/bert)
+- [Vaswani et al., “Attention Is All You Need.”](https://papers.nips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)[^vaswani2017] propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.
 
 ### Coherence evaluation
 In the following there is a list of recent papers regarding novel coherence evaluation metrics and methods. One important thing to take into account, in all these works, is the evaluation procedure they make to test their metrics.
@@ -33,19 +52,6 @@ Thus, one of the first improvement to be applied in coherence metrics consists i
 - BLEURT[^sellam2020]. It is a learned evaluation metric based on BERT that can model human judgments with a few thousand possibly biased training examples. A key aspect of their approach is a novel pre-training scheme that uses millions of synthetic examples to help the model generalize.
 👩‍💻 Links: [GitHub](https://github.com/google-research/bleurt) with checkpoint.
 - **GRADE[^huang2020]**. The authors first consider that the graph structure constituted with topics in a dialogue can accurately depict the underlying communication logic, which is a more natural way to produce persuasive metrics. Capitalized on the topic-level dialogue graph, the authors propose a new evaluation metric GRADE, which stands for Graph-enhanced Representations for Automatic Dialogue Evaluation. Specifically, GRADE incorporates both coarsegrained utterance-level contextualized representations and fine-grained topic-level graph representations to evaluate dialogue coherence. The graph representations are obtained by reasoning over topic-level dialogue graphs enhanced with the evidence from a commonsense graph, including k-hop neighboring representations and hop-attention weights. They use DailyDialog to train their model. 👩‍💻 Links: [GitHub](https://github.com/li3cmz/GRADE), it also has a model checkpoint!
-
-### Structure of attention in transformers
-[Clark et al., “What Does BERT Look At?”](http://arxiv.org/abs/1906.04341)[^clark2019] propose methods for analysing the attention mechanisms of pre-trained models and apply them to BERT. BERT’s attention heads exhibit patterns such as attending to delimiter tokens, specific positional offsets, or broadly attending over the whole sentence, with heads in the same layer often exhibiting similar behaviors. We further show that certain attention heads correspond well to linguistic notions of syntax and coreference. They propose an attention-based probing classifier and use it to further demonstrate that substantial syntactic information is captured in BERT’s attention. What is interesting for this work are many aspects of their findings:
-- BERT is capable of learning a lot of linguistic knowledge in its attention maps. This is relevant because the behaviour of the attention heads emerges purely from self-supervised training on unlabeled data, without explicit supervision for syntax or coreference;
-- they not only highlight the patterns found in attention maps, but they also validate this qualitative finding investigating individual attention heads to probe what aspects of language they have learned. They evaluate attention heads on labeled datasets for task like dependency parsing and coreference resolution;
-- they cluster attention heads to show that heads tend to cluster depending on their behaviour and their layer.
-👩‍💻 Links: [GitHub](https://github.com/li3cmz/GRADE) code to extract attention masks!
-
-[Raganato and Tiedemann, “An Analysis of Encoder Representations in Transformer-Based Machine Translation.”](https://aclanthology.org/W18-5431)[^raganato2018] found that attention encapsulate dependency relations and syntactic and semantic behavior across layers.
-
-[Manning et al., “Emergent Linguistic Structure in Artificial Neural Networks Trained by Self-Supervision.”](https://www.pnas.org/doi/full/10.1073/pnas.1907367117)[^manning2020] describes from scratch the problem of analysing linguistic structure in attention masks. Along with explaining all the building bricks to understand the problem itself, they explain also how to evaluate the attention head in representing a certain attention pattern. In particular, they use attention heads as simple classifiers, examining the most-attended-to word at each position. They evaluate whether the attention head is expressing a particular linguistic relationship by computing how often the most-attendend-to word is in that relationship with the input word. They compute the precision expressing the head's capability of identifying certain linguistic relationships: this score can be viewed as evaluating the attention head as a simple classifier that predicts the presence of the linguistic relationship of interest.
-
-[Vig and Belinkov, “Analyzing the Structure of Attention in a Transformer Language Model.”](https://aclanthology.org/W19-4808)[^vig2019a] found that many attention heads specialize in particular part-of-speech tags and that different tags are targeted at different layer depths. They also found that the deepest layers capture the most distant relationships, and that attention aligns most strongly  with dependency relations in the middle layers where attention distance is lowest. Lastly, they suggest that the structure of attention is closely tied to the training objective.
 
 ## Methodology
 ### Data
@@ -166,4 +172,11 @@ Another curiosity that could be satisfied is to analyse how different fine-tunin
 
 [^manning2020]:
     Manning, Christopher D., Kevin Clark, John Hewitt, Urvashi Khandelwal, and Omer Levy. “Emergent Linguistic Structure in Artificial Neural Networks Trained by Self-Supervision.” Proceedings of the National Academy of Sciences 117, no. 48 (December 2020): 30046–54. https://doi.org/10.1073/pnas.1907367117.
+
+[^devlin2019]:
+    Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. “BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding.” In Proceedings of the 2019 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers), 4171–86. Minneapolis, Minnesota: Association for Computational Linguistics, 2019. https://doi.org/10.18653/v1/N19-1423.
+
+[^vaswani2017]:
+    Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. “Attention Is All You Need.” In Advances in Neural Information Processing Systems, Vol. 30. Curran Associates, Inc., 2017. https://papers.nips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html.
+
 
