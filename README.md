@@ -24,6 +24,8 @@ The following papers are essential in order to understand attention, transformer
 - [Devlin et al., “BERT.”](https://aclanthology.org/N19-1423)[^devlin2019] is designed to pretrain deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers. As a result, the pre-trained BERT model can be finetuned with just one additional output layer to create state-of-the-art models for a wide range of tasks, such as question answering and language inference, without substantial taskspecific architecture modifications. 👩‍💻 Links: [GitHub](https://github.com/google-research/bert)
 - [Vaswani et al., “Attention Is All You Need.”](https://papers.nips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)[^vaswani2017] propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.
 
+Lastly, [Lin et al., “A Survey of Transformers.”](https://arxiv.org/pdf/2106.04554.pdf)[^lin2021] provides a landscape describing the progresses in the Transformer's research community, listing variants and models implementing Transformers.
+
 ### Coherence evaluation
 In the following there is a list of recent papers regarding novel coherence evaluation metrics and methods. One important thing to take into account, in all these works, is the evaluation procedure they make to test their metrics.
 
@@ -180,5 +182,8 @@ Another curiosity that could be satisfied is to analyse how different fine-tunin
 
 [^vaswani2017]:
     Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. “Attention Is All You Need.” In Advances in Neural Information Processing Systems, Vol. 30. Curran Associates, Inc., 2017. https://papers.nips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html.
+
+[^lin2021]:
+    Lin, Tianyang, Yuxin Wang, Xiangyang Liu, and Xipeng Qiu. “A Survey of Transformers.” ArXiv:2106.04554 [Cs], June 15, 2021. http://arxiv.org/abs/2106.04554.
 
 
