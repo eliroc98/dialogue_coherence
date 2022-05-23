@@ -13,6 +13,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 bert-base-uncased/
+gpt2-pretrained-on-dailydialog/
+saved_model/
 *.pkl
 .ipynb_checkpoints
 profile_default/
