@@ -1,6 +1,6 @@
 data/
 saved_model/
-.json
+*.json
 .env
 .venv
 env/
